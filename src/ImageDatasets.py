@@ -206,6 +206,11 @@ def setup_cifar10(dataset_name: str, raw_path: str, data_path: str) -> None:
     src_path = "{}/test_batch".format(src_root)
     dst_path = os.path.join(dst_root, "test")
     data2img_cifar(dataset_name, src_path, dst_path, class_names)
+    # Create symlink from val to test
+    val_path = os.path.join(dst_root, "val")
+    test_path = os.path.join(dst_root, "test")
+    if not os.path.exists(val_path):
+        os.symlink(os.path.basename(test_path), val_path)
 
 
 def setup_cifar100(dataset_name: str, raw_path: str, data_path: str) -> None:
@@ -240,6 +245,11 @@ def setup_cifar100(dataset_name: str, raw_path: str, data_path: str) -> None:
     src_path = "{}/test".format(src_root)
     dst_path = os.path.join(dst_root, "test")
     data2img_cifar(dataset_name, src_path, dst_path, class_names)
+    # Create symlink from val to test
+    val_path = os.path.join(dst_root, "val")
+    test_path = os.path.join(dst_root, "test")
+    if not os.path.exists(val_path):
+        os.symlink(os.path.basename(test_path), val_path)
 
 
 def data2img_mnist(src: str, dst: str, phase: str) -> None:
@@ -285,6 +295,11 @@ def setup_mnist(dataset_name: str, raw_path: str, data_path: str) -> None:
     # Extract test files
     print("Extract test files")
     data2img_mnist(os.path.join(raw_path, ""), dst_root, "test")
+    # Create symlink from val to test
+    val_path = os.path.join(dst_root, "val")
+    test_path = os.path.join(dst_root, "test")
+    if not os.path.exists(val_path):
+        os.symlink(os.path.basename(test_path), val_path)
 
 
 def setup_fashionmnist(dataset_name: str, raw_path: str, data_path: str) -> None:
@@ -302,6 +317,11 @@ def setup_fashionmnist(dataset_name: str, raw_path: str, data_path: str) -> None
     # Extract test files
     print("Extract test files")
     data2img_mnist(os.path.join(raw_path, ""), dst_root, "test")
+    # Create symlink from val to test
+    val_path = os.path.join(dst_root, "val")
+    test_path = os.path.join(dst_root, "test")
+    if not os.path.exists(val_path):
+        os.symlink(os.path.basename(test_path), val_path)
 
 
 def symlink_caltech(dataset_name: str, data_path: str, folder_name: str) -> None:
@@ -330,6 +350,11 @@ def symlink_caltech(dataset_name: str, data_path: str, folder_name: str) -> None
                 continue
             os.makedirs(os.path.join(subset_root, "train", class_name), exist_ok=True)
             os.makedirs(os.path.join(subset_root, "test", class_name), exist_ok=True)
+        # Create symlink from val to test
+        val_path = os.path.join(subset_root, "val")
+        test_path = os.path.join(subset_root, "test")
+        if not os.path.exists(val_path):
+            os.symlink(os.path.basename(test_path), val_path)
         for phase in ("train", "test"):
             filenames = np.genfromtxt(
                 "{0}/csv/{0}_{1}_{2}.csv".format(dataset_name, phase, subset),
@@ -433,6 +458,11 @@ def symlink_omniglot(dst_path: str, folder_name: str) -> None:
                         os.path.join(src_root, class_name, file_name),
                         os.path.join(subset_root, "test", class_name, file_name),
                     )
+        # Create symlink from val to test
+        val_path = os.path.join(subset_root, "val")
+        test_path = os.path.join(subset_root, "test")
+        if not os.path.exists(val_path):
+            os.symlink(os.path.basename(test_path), val_path)
 
 
 def setup_omniglot(dataset_name: str, raw_path: str, data_path: str) -> None:
