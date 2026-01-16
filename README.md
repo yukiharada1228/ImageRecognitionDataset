@@ -5,29 +5,25 @@ Caltech101/256, CIFAR-10/100, MNIST/FashionMNIST, omniglot
 ## Requirement
 
 - Python >= 3.8
-- Poetry >= 1.2
+- uv
 
 ## Install
 
-### pip
-
 ```bash
-pip install numpy pillow tqdm
-```
+# Install dependencies
+uv sync
 
-### poetry
-
-```bash
-poetry install
+# Install with dev dependencies
+uv sync --extra dev
 ```
 
 ## Usage
 
 ```bash
-# Dataset Download 
-python src/download.py --dataset {CIFAR10 | CIFAR100 | MNIST | fashionMNIST | caltech101 | caltech256 | omniglot}
+# Dataset Download
+uv run src/download.py --dataset {CIFAR10 | CIFAR100 | MNIST | fashionMNIST | caltech101 | caltech256 | omniglot}
 # Calculate Dataset Mean Std
-python src/calculate.py --dataset {CIFAR10 | CIFAR100 | MNIST | fashionMNIST | caltech101 | caltech256 | omniglot}
+uv run src/calculate.py --dataset {CIFAR10 | CIFAR100 | MNIST | fashionMNIST | caltech101 | caltech256 | omniglot}
 ```
 
 ## Caluculated Result
